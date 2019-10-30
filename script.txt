@@ -1,0 +1,40 @@
+  pipeline {
+            agent any
+       stages{
+                    
+                        stage ("Code Clone from Gitlab") {
+                        steps {
+                        sh "git clone git@gitlab.com:Bhupesh.yadav/spring3hibernate.git"
+                        }
+                        }
+                        stage ("Code Stability") {
+                        steps {
+                        sh "cd spring3hibernate; mvn validate"
+                        }
+
+
+        }
+        stage ("code compile") {
+            steps {
+                sh "cd spring3hibernate; mvn compiler:compile"
+
+            }
+        }
+        stage ("Test the code") {
+        steps {
+            sh "cd spring3hibernate; mvn test"
+        }
+        }
+stage ("package the code") {
+steps {
+    sh "cd spring3hibernate; mvn package"
+}
+        }
+        stage ("install") {
+        steps {
+            sh "cd spring3hibernate; mvn install"
+        }
+        }
+        }
+        }
+        
